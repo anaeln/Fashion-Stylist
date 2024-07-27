@@ -20,7 +20,12 @@ interface FileUploadButtonProps {
 
 const FileUploadButton = ({ uploadImage }: FileUploadButtonProps) => {
 	return (
-		<Button component='label' variant='contained' tabIndex={-1} startIcon={<CloudUploadIcon />}>
+		<Button
+			component='label'
+			variant='contained'
+			tabIndex={-1}
+			startIcon={<CloudUploadIcon />}
+			color='primary'>
 			Upload Image
 			<VisuallyHiddenInput type='file' onChange={uploadImage} />
 		</Button>
