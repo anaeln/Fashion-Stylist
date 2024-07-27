@@ -44,9 +44,9 @@ x = GlobalAveragePooling2D()(x)
 embedding_model = Model(inputs=base_model.input, outputs=x)
 
 # Load precomputed embeddings and DataFrame
-with open('/Users/hanae/Desktop/Study/3. Third year/FinalProject/embeddings/embeddings-new.pkl', 'rb') as f: # change it with the real file (from the drive url)
+with open('models/image-embeddings/embeddings-new.pkl', 'rb') as f:
     embeddings = pickle.load(f)
-df = pd.read_csv('/Users/hanae/Desktop/Study/3. Third year/FinalProject/embeddings/dataset_with_embeddings-new.csv') # change it with the real file (from the drive url)
+df = pd.read_csv('models/image-embeddings/dataset_with_embeddings-new.csv')
 
 # Define data transformations
 transform = transforms.Compose([

@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import base64
 import time

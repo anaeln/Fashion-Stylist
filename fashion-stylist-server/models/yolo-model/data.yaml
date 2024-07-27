@@ -1,0 +1,6 @@
+
+train: ../ecommerce_dataset/train/images
+val: ../ecommerce_dataset/val/images
+
+nc: 3  # number of classes
+names: ['Topwear', 'Bottomwear', 'Footwear']  # class names

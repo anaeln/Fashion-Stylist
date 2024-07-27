@@ -1,10 +1,17 @@
 from flask import Flask, request, jsonify
 import os
 from utils import (predict_gender, extract_clothes, get_embedding_from_image, get_recommender, embeddings, df, embedding_model)
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
 
-@app.route('/', methods=['POST'])
+app.config['CORS_HEADERS'] = 'Content-Type'
+app = Flask(__name__)
+
+
+@app.post('/')
+@cross_origin()
 def process_image():
     if 'image' not in request.files:
         return jsonify({"error": "No image file provided"}), 400
@@ -37,5 +44,6 @@ def process_image():
         "recommendations": recommendations
     })
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=3001)
+    app.run(debug=True, port=5000)
