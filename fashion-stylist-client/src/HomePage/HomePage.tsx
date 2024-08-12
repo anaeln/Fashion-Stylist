@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import FileUploadButton from './FileUploadButton';
-import { Box, Button, CircularProgress, Stack, Tooltip, Typography } from '@mui/material';
+import { Button, CircularProgress, Stack, Tooltip, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import ImageCard from './ImageCard';
