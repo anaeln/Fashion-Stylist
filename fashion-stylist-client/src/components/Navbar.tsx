@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
                     <Button color="inherit" component={Link} to="/">
                         Home
                     </Button>
-                    <Button color="inherit" component={Link} to="/HomePage">
+                    <Button color="inherit" component={Link} to="/UploadPage">
                         Upload
                     </Button>
                     {!profile ? 
