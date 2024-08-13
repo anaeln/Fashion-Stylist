@@ -31,7 +31,7 @@ const FileUploadButton = ({ uploadImage, isLoading }: FileUploadButtonProps) => 
 				isLoading ? <CircularProgress size={18} sx={{ color: 'white' }} /> : <CloudUploadIcon />
 			}
 			color='primary'>
-			{isLoading ? 'uploading...' : 'Upload Image'}
+			{isLoading ? 'uploading...' : 'Upload New Image'}
 			{isLoading ? null : <VisuallyHiddenInput type='file' onChange={uploadImage} />}
 		</Button>
 	);

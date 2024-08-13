@@ -14,7 +14,7 @@ const axiosConfig: AxiosRequestConfig<FormData> = {
 	headers: { 'Content-Type': 'multipart/form-data' },
 };
 
-const HomePage = () => {
+const UploadPage = () => {
 	const [imageUrl, setImageUrl] = useState<string>('');
 	const [isRecommendationsView, setIsRecommendationsView] = useState(false);
 
@@ -78,4 +78,4 @@ const HomePage = () => {
 	);
 };
 
-export default HomePage;
+export default UploadPage;

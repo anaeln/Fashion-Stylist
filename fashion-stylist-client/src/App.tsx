@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './HomePage/HomePage';
+import UploadPage from './UploadPage/UploadPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import ProfilePage from './ProfilePage';
 import Navbar from './components/Navbar';
+import HomePage from './Home/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/HomePage" element={<UploadPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
