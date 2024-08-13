@@ -7,7 +7,7 @@ from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson import ObjectId
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public')
 app.config['SECRET_KEY'] = 'fashionstylish'
 app.config['MONGO_URI'] = 'mongodb+srv://omeror:YyBgekx4Xvm14AZw@scrapers.rbagytw.mongodb.net/fashiondb?retryWrites=true&w=majority'
 app.config['CORS_HEADERS'] = 'Content-Type'
