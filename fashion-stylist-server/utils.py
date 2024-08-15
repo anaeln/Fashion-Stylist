@@ -13,7 +13,7 @@ import pandas as pd
 import pickle
 
 # Initialize YOLO model
-yolo_model = YOLO('models/yolo-model/best.pt')  # Update with your YOLO model path
+yolo_model = YOLO('fashion-stylist-server/models/yolo-model/best.pt')  # Update with your YOLO model path
 
 # Initialize Gender Classification Model
 class GenderClassificationModel(nn.Module):
@@ -29,7 +29,7 @@ class GenderClassificationModel(nn.Module):
         return self.model(x)
 
 gender_model = GenderClassificationModel()
-state_dict = torch.load('models/gender_classification_model/gender_classification_model.pth')
+state_dict = torch.load('fashion-stylist-server/models/gender_classification_model/gender_classification_model.pth')
 gender_model.load_state_dict(state_dict)
 gender_model.eval()
 
@@ -44,9 +44,13 @@ x = GlobalAveragePooling2D()(x)
 embedding_model = Model(inputs=base_model.input, outputs=x)
 
 # Load precomputed embeddings and DataFrame
-with open('models/image-embeddings/embeddings-new.pkl', 'rb') as f:
-    embeddings = pickle.load(f)
-df = pd.read_csv('models/image-embeddings/dataset_with_embeddings-new.csv')
+with open('fashion-stylist-server/models/image-embeddings/terminalx_embeddings.pkl', 'rb') as f:
+    embeddings_dict = pickle.load(f)
+df = pd.read_csv('fashion-stylist-server/models/image-embeddings/dataset_with_embeddings-new.csv')
+
+# Create a dictionary to map image names to genders
+df['_id'] = df['_id'].str.split('.').str[0]  # Remove file extension if needed
+image_gender_map = df.set_index('_id')['gender'].to_dict()
 
 # Define data transformations
 transform = transforms.Compose([
@@ -110,12 +114,46 @@ def get_embedding_from_image(model, img):
         print(f"Error processing image: {e}")
         return np.zeros(model.output_shape[1])
 
-def get_recommender(test_embedding, df, embeddings, top_n=1):
-    test_embedding_reshaped = test_embedding.reshape(1, -1)
-    similarities = cosine_similarity(embeddings, test_embedding_reshaped).flatten()
-    sim_scores = sorted(enumerate(similarities), key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[:top_n+1] if sim_scores[0][1] < 1.0 else sim_scores[1:top_n+1]
-    idx_rec = [i[0] for i in sim_scores[:top_n]]
-    sim_values = [i[1] for i in sim_scores[:top_n]]
-    recommended_items = df.iloc[idx_rec]
-    return recommended_items, sim_values
+def recommend_items(part_name, query_embedding, gender, top_n=5):
+    similarities = []
+
+    # Reshape the query embedding to be 2D: (1, n_features)
+    query_embedding = query_embedding.reshape(1, -1)
+
+    # Loop through each item in the dataset and calculate similarity
+    for idx in df.index:
+        if df.loc[idx, 'category'].lower() == part_name and df.loc[idx, 'gender'].lower() == gender.lower():
+            img_name = df.loc[idx, '_id']  # Get the image name without the extension
+            key = f"{img_name}.jpg_{part_name}"  # Format the key to match the embeddings_dict keys
+
+            if key in embeddings_dict:
+                embedding = embeddings_dict[key]
+
+                # Reshape the stored embedding as well to be 2D
+                embedding = embedding.reshape(1, -1)
+
+                # Calculate similarity
+                sim = cosine_similarity(query_embedding, embedding)
+
+                # If the similarity is less than a very high threshold (indicating it's not the same image), include it
+                if sim[0][0] < 0.999999:  # Use a threshold slightly less than 1
+                    similarities.append((key, sim[0][0]))
+
+    # Sort by similarity score in descending order
+    similarities = sorted(similarities, key=lambda x: x[1], reverse=True)
+
+    # Get top N recommendations
+    top_recommendations = similarities[:top_n]
+
+    # Map the recommended image names to their corresponding metadata
+    recommended_items = []
+    for rec in top_recommendations:
+        img_name = rec[0].split('.')[0]  # Get the image name without the part suffix
+        item_data = df[df['_id'] == img_name].iloc[0].to_dict()
+        item_data['similarity'] = float(rec[1])  # Convert similarity to Python float for JSON serialization
+        recommended_items.append(item_data)
+
+    return recommended_items
+
+
+

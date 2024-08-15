@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, session
 import os
-from utils import (predict_gender, extract_clothes, get_embedding_from_image, get_recommender, embeddings, df, embedding_model)
+from utils import (predict_gender, extract_clothes, get_embedding_from_image, recommend_items, embeddings_dict, df, embedding_model)
 
 from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
@@ -47,10 +47,9 @@ def process_image():
             filtered_df = df[df['gender'].str.lower() == detected_gender.lower()]
             filtered_df = filtered_df[filtered_df['category'].str.lower() == category]
             if not filtered_df.empty:
-                filtered_embeddings = embeddings[filtered_df.index]
-                recommended_items, sim_values = get_recommender(embedding, filtered_df, filtered_embeddings, top_n=1)
-                recommendations[category] = recommended_items.to_dict(orient='records')
-    print(recommendations)
+                recommended_items = recommend_items(category, embedding, detected_gender, top_n=1)
+                recommendations[category] = recommended_items
+
     return jsonify({
         "gender": detected_gender,
         "recommendations": recommendations
@@ -129,4 +128,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=3001)

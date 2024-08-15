@@ -1,7 +1,12 @@
 gender_classification_model/.DS_Store
+fashion-stylist-server/models/gender_classification_model/archive/
 gender_classification_model/archive /.DS_Store
 gender_classification_model/archive /data/.DS_Store
 .DS_Store
 fashion-stylist-server/__pycache__/utills.cpython-312.pyc
 fashion-stylist-server/__pycache__/utils.cpython-312.pyc
 uploads/
+gender_classification_model.pth
+terminalx_embeddings.pkl
+dataset_with_embeddings-new.csv
+embeddings-new.pkl
