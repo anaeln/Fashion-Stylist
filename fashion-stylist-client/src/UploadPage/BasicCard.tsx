@@ -1,48 +1,28 @@
-import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
+import { Card, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-interface Card{
-    link: string;
-    price: string;
-    title: string;
-    brand: string;
-    img: string;
+interface CardProps {
+  link: string;
+  price: string;
+  title: string;
+  brand: string;
+  img: string;
 }
 
-export default function BasicCard({link,price,title,brand,img}: Card) {
+export default function BasicCard({ link, price, title, brand, img }: CardProps) {
   return (
-    <Card sx={{ width: 320 }}>
-      <div>
-        <Typography level="title-lg">{title}</Typography>
-        <Typography level="body-sm">{brand}</Typography>
-      </div>
-      <AspectRatio minHeight="300px" maxHeight="350px">
-        <img
-          src={img}
-          srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
-          loading="lazy"
-          alt=""
-        />
-      </AspectRatio>
-      <CardContent orientation="horizontal">
-        <div>
-          <Typography level="body-xs">Total price:</Typography>
-          <Typography fontSize="lg" fontWeight="lg">{price}</Typography>
-        </div>
-        <Button
-          variant="solid"
-          size="md"
-          color="primary"
-          onClick={() => window.open(`${link}`)}
-          aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
-        >
+    <Card style={{ width: '20rem' }} key={title}>
+      <Card.Img variant="top" src={img} alt={title} style={{ height: '200px', objectFit: 'cover' }} />
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{brand}</Card.Subtitle>
+        <Card.Text>
+          Total price: {price}
+        </Card.Text>
+        <Button variant="primary" onClick={() => window.open(`${link}`)}>
           Open
         </Button>
-      </CardContent>
+      </Card.Body>
     </Card>
   );
 }

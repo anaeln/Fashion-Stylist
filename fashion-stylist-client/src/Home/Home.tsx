@@ -15,7 +15,16 @@ const HomePage = () => {
             <Box height={600} width={600} >
                 <Stack>
                     <Stack direction={'row'}>
-                        <Box width={'55px'} height={'55px'} sx={{mx:'10px',border:'2px solid black', borderRadius:'100%'}}></Box>
+                            <Box
+                                component="img"
+                                src={'http://localhost:5000/public/logo.jpg'}
+                                sx={{
+                                maxHeight: '60px',
+                                maxWidth: '60px',
+                                borderRadius:'50px'
+                                }}
+                                alt="Robot"
+                            />
                         <Typography variant='h3' color={'black'} sx={{textAlign: 'left', fontWeight: '600' }}>
                             Fashion Stylist
                         </Typography>
