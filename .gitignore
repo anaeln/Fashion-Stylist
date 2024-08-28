@@ -2,6 +2,8 @@ gender_classification_model/.DS_Store
 gender_classification_model/archive /.DS_Store
 gender_classification_model/archive /data/.DS_Store
 .DS_Store
-fashion-stylist-server/__pycache__/utills.cpython-312.pyc
+fashion-stylist-server/__pycache__/utils.cpython-311.pyc
 fashion-stylist-server/__pycache__/utils.cpython-312.pyc
 uploads/
+fashion-stylist-server/models/image-embeddings
+fashion-stylist-server/__pycache__

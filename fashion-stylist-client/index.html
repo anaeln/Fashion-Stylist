@@ -3,13 +3,39 @@
 	<head>
 		<meta charset="UTF-8" />
 		<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap" rel="stylesheet">
-
 		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<link rel="stylesheet" href="./accessibilityTool.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Fashion Stylist</title>
 	</head>
 	<body>
 		<div id="root"></div>
+		<div id="accessibilityToolbar" class="toolbar">
+			<div id="toolbarButtons" class="toolbarButtons">
+				<div class="twoButtons">
+					<button onclick="adjustZoom(-0.1)" id="zoomOutButton">Zoom -</button><!--
+				 --><button onclick="adjustZoom(0.1)" id="zoomInButton">Zoom +</button>
+				</div>
+				<div class="twoButtons">
+					<button onclick="changeFontSize(-1)" id="decreaseFontButton">Font -</button><!--
+				 --><button onclick="changeFontSize(1)" id="increaseFontButton">Font +</button>
+				</div>
+				<div class="threeButtons">
+					<button onclick="changeFontFamily(-1)" id="leftFontButton">&lt;</button><!--
+				 --><button onclick="changeFontFamily(1)" id="toggleFontButton">Change Font</button><!--
+				 --><button onclick="changeFontFamily(1)" id="rightFontButton">&gt;</button> 
+				</div>
+				<button onclick="makeTextBold()" id="toggleBoldButton">Make Text Bold</button>
+				<button onclick="changeColors()" id="changeColorsButton">Change Colors</button>
+				<button onclick="toggleCursor()" id="cursorSizeButton">Make Cursor Larger</button>
+				<audio id="audioPlayer" src="http://localhost:5000/public/instructions.mp3"></audio>
+				<button onclick="toggleSpeech()" id="readAloudButton">Voice Instractions</button>
+			</div>
+			<button onclick="showTool()" id="toggleToolbar" class="toggleButton">
+				<img src="http://localhost:5000/public/child.png" id="accessibilityImage">
+			</button>
+		</div>
 		<script type="module" src="/src/main.tsx"></script>
+		<script src="./accessibilityTool.js"></script>
 	</body>
 </html>

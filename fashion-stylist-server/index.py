@@ -48,9 +48,8 @@ def process_image():
             filtered_df = filtered_df[filtered_df['category'].str.lower() == category]
             if not filtered_df.empty:
                 filtered_embeddings = embeddings[filtered_df.index]
-                recommended_items, sim_values = get_recommender(embedding, filtered_df, filtered_embeddings, top_n=1)
+                recommended_items, sim_values = get_recommender(embedding, filtered_df, filtered_embeddings, top_n=8)
                 recommendations[category] = recommended_items.to_dict(orient='records')
-    print(recommendations)
     return jsonify({
         "gender": detected_gender,
         "recommendations": recommendations

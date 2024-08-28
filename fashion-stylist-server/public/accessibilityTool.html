@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="accessibilityTool.css">
+</head>
+<body>
+    <div id="accessibilityToolbar" class="toolbar">
+        <div id="toolbarButtons" class="toolbarButtons">
+            <div class="twoButtons">
+                <button onclick="adjustZoom(-0.1)">Zoom -</button><!--
+             --><button onclick="adjustZoom(0.1)">Zoom +</button>
+            </div>
+            <div class="twoButtons">
+                <button onclick="changeFontSize(-1)">Font -</button><!--
+             --><button onclick="changeFontSize(1)">Font +</button>
+            </div>
+            <div class="threeButtons">
+                <button onclick="changeFont(-1)" id="leftFontButton">&lt;</button><!--
+             --><button onclick="changeFont(1)" id="toggleFontButton">Change Font</button><!--
+             --><button onclick="changeFont(1)" id="rightFontButton">></button> 
+            </div>
+            <button onclick="makeTextBold()" id="toggleBoldButton">Make Text Bold</button>
+            <button onclick="changeContrast()">Change Colors</button>
+            <button onclick="toggleCursor()" id="cursorSizeButton">Make Cursor Larger</button>
+            <audio id="audioPlayer" src="./instructions.mp3"></audio>
+            <button onclick="toggleSpeech()" id="readAloudButton">Voice Instractions</button>
+        </div>
+        <button onclick="showTool()" id="toggleToolbar" class="toggleButton">
+            <img src="./child.png" id="accessibilityImage">
+        </button>
+    </div>
+    <script src="accessibilityTool.js"></script>
+</body>
+</html>

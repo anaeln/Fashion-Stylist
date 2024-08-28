@@ -62,7 +62,7 @@ const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({ imageUrl, clear
             <Icon component={PhotoCameraIcon} sx={{ fontSize: 60, color: 'textSecondary' }} />
             <Typography variant='h6'>
               Drop your image here, or
-              <Typography component='span' color='primary'>
+              <Typography component='span' color='primary' sx={{ ml: 1 }}>
                 Browse
               </Typography>
             </Typography>

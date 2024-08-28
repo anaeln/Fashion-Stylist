@@ -1,0 +1,191 @@
+input{
+    width: 250px !important;
+}
+
+.largeCursor {
+    cursor: url('http://localhost:5000/public/largeArrowCursor.png'), auto;
+}
+
+.largeCursor button:hover,
+.largeCursor #toggleToolbar:hover,
+.largeCursor .toolbarButtons:hover,
+.largeCursor .MuiButtonBase-root:hover {
+    cursor: url('http://localhost:5000/public/largeFingerCursor.png') 12 0, auto;
+}
+
+.boldText * {
+    font-weight: bold !important;
+}
+
+.toolbar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+#accessibilityToolbar {
+    transform: none;
+    font-size: 16px;
+    transform-origin: bottom left;
+}
+
+#toggleToolbar {
+    border: 3px solid black;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 50px;
+    height: 50px;
+    margin-top: 0;
+}
+
+#accessibilityImage{
+    display: block; 
+    max-width: 100%; 
+}
+
+.toolbarButtons {
+    display: none;
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.toolbarButtons button{
+    margin: 0;
+}
+
+.toolbarButtons.show {
+    display: flex;
+}
+
+.toolbarButtons button {
+    width: 240px;
+    height: 55px;
+    font-size: 18px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.twoButtons button{
+    width: 120px;
+}
+
+.threeButtons button:nth-child(1),
+.threeButtons button:nth-child(3) {
+    width: 30px;
+    
+}
+
+.threeButtons button:nth-child(2) {
+    width: 180px;
+}
+
+.toolbarButtons button:hover {
+    background-color: #e9ecef;
+}
+
+#textToReadAloud {
+    display: none;
+}
+
+
+
+/* Black and White Color Scheme */
+.blackWhite,
+.blackWhite .MuiTypography-root,
+.blackWhite #navBarSeparator,
+.blackWhite .MuiPaper-root,
+.blackWhite #root {
+    background-color: black;
+    color: white;
+}
+
+.blackWhite .MuiBox-root {
+    border-color: white;
+}
+
+.blackWhite .MuiButton-root,
+.blackWhite .MuiButton-contained,
+.blackWhite .MuiButton-outlined {
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+}
+
+.blackWhite #root .MuiInputBase-input,
+.blackWhite #root .MuiFormLabel-root,
+.blackWhite #root .MuiOutlinedInput-notchedOutline {
+    border-color: white;
+    color: white;
+}
+
+.blackWhite .MuiToolbar-root{
+    border: 2px solid white;
+    border-radius: 30px;
+}
+
+/* Black and Yellow Color Scheme */
+.blackYellow,
+.blackYellow .MuiTypography-root,
+.blackYellow #navBarSeparator,
+.blackYellow .MuiPaper-root,
+.blackYellow #root {
+    background-color: black;
+    color: yellow;
+}
+
+.blackYellow .MuiBox-root{
+    border-color: yellow;
+}
+
+.blackYellow .MuiButton-root,
+.blackYellow .MuiButton-contained,
+.blackYellow .MuiButton-outlined {
+    border: 2px solid yellow;
+    background-color: black;
+    color: yellow;
+}
+
+.blackYellow #root .MuiInputBase-input,
+.blackYellow #root .MuiFormLabel-root,
+.blackYellow #root .MuiOutlinedInput-notchedOutline {
+    border-color: yellow;
+    color: yellow
+}
+
+.blackYellow .MuiToolbar-root{
+    border: 2px solid yellow;
+    border-radius: 30px;
+}
+
+
+body[class*="-font"] #root .MuiTypography-root,
+body[class*="-font"] #root .MuiButton-root,
+body[class*="-font"] #root .MuiInputBase-input,
+body[class*="-font"] #root .MuiFormLabel-root,
+body[class*="-font"] #root .MuiOutlinedInput-notchedOutline {
+    font-family: var(--current-font);
+}
+
+.jost-font {
+    --current-font: 'Jost';
+}
+
+.cursive-font {
+    --current-font: cursive;
+}
+
+.courier-font {
+    --current-font: 'Courier New';
+}
+
+.serif-font {
+    --current-font: serif;
+}
+
+.arial-font {
+    --current-font: Arial;
+}

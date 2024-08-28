@@ -11,7 +11,7 @@ interface CardProps {
 
 export default function BasicCard({ link, price, title, brand, img }: CardProps) {
   return (
-    <Card style={{ width: '20rem' }} key={title}>
+    <Card style={{ width: '20rem', height: '470px'}} key={title}>
       <Card.Img variant="top" src={img} alt={title} style={{ height: '200px', objectFit: 'cover' }} />
       <Card.Body>
         <Card.Title>{title}</Card.Title>

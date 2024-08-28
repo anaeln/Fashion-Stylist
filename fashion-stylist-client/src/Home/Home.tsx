@@ -11,20 +11,29 @@ const HomePage = () => {
 	return (
         <Stack direction="row"justifyContent="space-between"alignItems="center"spacing={1}>
 
-            {/*content on left side */}
+            {/* content on left side */}
             <Box height={600} width={600} >
                 <Stack>
                     <Stack direction={'row'}>
-                            <Box
-                                component="img"
-                                src={'http://localhost:5000/public/logo.jpg'}
-                                sx={{
-                                maxHeight: '60px',
-                                maxWidth: '60px',
-                                borderRadius:'50px'
-                                }}
-                                alt="Robot"
-                            />
+                    <Box
+                        sx={{
+                            maxHeight: '60px',
+                            maxWidth: '60px',
+                            borderRadius: '50%',
+                            overflow: 'hidden',
+                        }}
+                        >
+                        <Box
+                            component="img"
+                            src={'http://localhost:5000/public/logo.jpg'}
+                            sx={{
+                            height: '100%',
+                            width: '100%',
+                            transform: 'scale(1.45) translate(-0.3%, 0.2%)',
+                            }}
+                            alt="Logo"
+                        />
+                        </Box>
                         <Typography variant='h3' color={'black'} sx={{textAlign: 'left', fontWeight: '600' }}>
                             Fashion Stylist
                         </Typography>
@@ -90,7 +99,7 @@ const HomePage = () => {
                 </Stack>
             </Box>
 
-            {/*huge fucking photo */}
+            {/* big robots photo */}
             <Box
             height={700}
             width={600}

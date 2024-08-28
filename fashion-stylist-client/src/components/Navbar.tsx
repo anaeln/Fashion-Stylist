@@ -13,30 +13,30 @@ const Navbar: React.FC = () => {
         <AppBar position="static" color="primary" style={{ borderRadius: 30, border: 1, maxWidth: '75%', margin: '0 auto' }}>
             <Toolbar style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ fontSize: '22px' }}>
                         Fashion Recommender
                     </Typography>
                 </div>
-                <div style={{ borderLeft: '1px solid white', height: '24px', margin: '0 16px' }}></div>
+                <div id='navBarSeparator' style={{ borderLeft: '1px solid', height: '24px', margin: '0 16px' }}></div>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <Button color="inherit" component={Link} to="/">
+                    <Button color="inherit" component={Link} to="/" sx={{ fontSize: '17px' }}>
                         Home
                     </Button>
-                    <Button color="inherit" component={Link} to="/UploadPage">
+                    <Button color="inherit" component={Link} to="/UploadPage" sx={{ fontSize: '17px' }}>
                         Upload
                     </Button>
                     {!profile ? 
                         <>
-                            <Button color="inherit" component={Link} to="/login">
+                            <Button color="inherit" component={Link} to="/login" sx={{ fontSize: '17px' }}>
                                 Login
                             </Button>
-                            <Button color="inherit" component={Link} to="/register">
+                            <Button color="inherit" component={Link} to="/register" sx={{ fontSize: '17px' }}>
                                 Register
                             </Button>
                         </>
                         :
                         <>
-                            <Button color="inherit" component={Link} to="/profile">
+                            <Button color="inherit" component={Link} to="/profile" sx={{ fontSize: '17px' }}>
                                 Profile
                             </Button>
                         </>
