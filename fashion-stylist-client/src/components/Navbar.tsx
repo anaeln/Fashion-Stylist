@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
             <Toolbar style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
                     <Typography variant="h6" sx={{ fontSize: '22px' }}>
-                        Fashion Recommender
+                        Fashion Stylist
                     </Typography>
                 </div>
                 <div id='navBarSeparator' style={{ borderLeft: '1px solid', height: '24px', margin: '0 16px' }}></div>

@@ -64,7 +64,7 @@ const HomePage = () => {
                         Get an AI-powered personal stylist that offers recommendations to help you look and feel your best
                     </Typography>
                     <Box
-                        height={150}
+                        height={300}
                         width={500}
                         sx={{
                             ml:"90px",

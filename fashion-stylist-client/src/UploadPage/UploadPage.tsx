@@ -49,7 +49,7 @@ const UploadPage = () => {
     };
 
     return (
-        <Stack alignItems='center' spacing={4} justifyContent='space-around' m={5}>
+        <Stack alignItems='center' spacing={4} justifyContent='space-around'>
             {!isRecommendationsView ? (
                 <ImageUploadSection
                     imageUrl={imageUrl}

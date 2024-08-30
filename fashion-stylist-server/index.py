@@ -63,6 +63,7 @@ def register():
     email = data.get('email')
     password = data.get('password')
     name = data.get('name')
+    favorites = []
 
     # Check if user already exists
     if users_collection.find_one({'email': email}):
@@ -73,7 +74,8 @@ def register():
     user_id = users_collection.insert_one({
         'email': email,
         'password': hashed_password,
-        'name': name
+        'name': name,
+        'favorites': favorites
     }).inserted_id
 
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id)}), 201
@@ -116,7 +118,8 @@ def profile():
     return jsonify({
         'id': str(user['_id']),
         'email': user['email'],
-        'name': user['name']
+        'name': user['name'],
+        'favorites': user['favorites']
     }), 200
 
 
@@ -125,6 +128,67 @@ def profile():
 def logout():
     session.clear()
     return jsonify({'message': 'Logged out successfully'}), 200
+
+
+@app.route('/favorites', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def toggle_favorite():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    data = request.get_json()
+    item = {
+        'id': data.get('id'),
+        'link': data.get('link'),
+        'title': data.get('title'),
+        'price': data.get('price'),
+        'img': data.get('img'),
+        'brand': data.get('brand')
+    }
+
+    # Find the user
+    user = users_collection.find_one({'_id': ObjectId(user_id)})
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Check if the item is already in favorites
+    favorites = user.get('favorites', [])
+    if any(fav['link'] == item['link'] for fav in favorites):
+        # If the item is already in favorites, remove it
+        users_collection.update_one(
+            {'_id': ObjectId(user_id)},
+            {'$pull': {'favorites': {'link': item['link']}}}
+        )
+        return jsonify({'message': 'Item removed from favorites'}), 200
+    else:
+        # If the item is not in favorites, add it
+        users_collection.update_one(
+            {'_id': ObjectId(user_id)},
+            {'$push': {'favorites': item}}
+        )
+        return jsonify({'message': 'Item added to favorites'}), 200
+
+
+@app.route('/userInfo', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def get_user_info():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Unauthorized'}), 401    
+
+    # Find the user
+    user = users_collection.find_one({'_id': ObjectId(user_id)})
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    return jsonify({
+        'id': str(user['_id']),
+        'email': user['email'],
+        'name': user['name'],
+        'favorites': user['favorites']
+    }), 200
+    
 
 
 if __name__ == '__main__':

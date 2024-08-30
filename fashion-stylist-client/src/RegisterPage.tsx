@@ -6,13 +6,24 @@ import { useNavigate } from 'react-router-dom';
 import config from './config';
 
 const RegisterPage: React.FC = () => {
+	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const navigate = useNavigate();
 
 	const handleRegister = async () => {
+		if (!name || !email || !password) {
+			alert('All fields are required.');
+			return;
+		}
+
+		if (!email.includes('@')) {
+			alert('Please enter a valid email address.');
+			return;
+		}
+
 		try {
-			await axios.post(`${config.serverUrl}/register`, { email, password });
+			await axios.post(`${config.serverUrl}/register`, { name, email, password });
 			navigate('/login');
 		} catch (error) {
 			console.error('Registration failed:', error);
@@ -20,8 +31,15 @@ const RegisterPage: React.FC = () => {
 	};
 
 	return (
-		<Box display="flex" flexDirection="column" alignItems="center" mt={5} minHeight={'75vh'}>
+		<Box display="flex" flexDirection="column" alignItems="center" mt={5} minHeight="75vh">
 			<Typography variant="h4">Register</Typography>
+			<TextField
+				label="Name"
+				variant="outlined"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+				margin="normal"
+			/>
 			<TextField
 				label="Email"
 				variant="outlined"
