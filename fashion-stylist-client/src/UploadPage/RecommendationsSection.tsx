@@ -27,18 +27,18 @@ const categoryOrder = ['topwear', 'bottomwear', 'footwear'];
 const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recommendationImage, isRecommendationPending, isRecommendationSuccess }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [favoritesArray, setFavoritesArray] = useState<any[]>([]);
+  const [isUpdatingFavorites, setIsUpdatingFavorites] = useState(false);
+
+  const fetchFavorites = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/userInfo', { withCredentials: true });
+      setFavoritesArray(response.data.favorites);
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+    }
+  };
 
   useEffect(() => {
-    // Fetch favorites when the component mounts
-    const fetchFavorites = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/userInfo', { withCredentials: true });
-        setFavoritesArray(response.data.favorites);
-      } catch (error) {
-        console.error('Error fetching favorites:', error);
-      }
-    };
-
     fetchFavorites();
   }, []);
 
@@ -61,11 +61,15 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
   const interleavedRows = interleaveLists(recommendationLists);
 
   const goToNextLine = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % interleavedRows.length);
+    if (!isUpdatingFavorites) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % interleavedRows.length);
+    }
   };
 
   const goToPreviousLine = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + interleavedRows.length) % interleavedRows.length);
+    if (!isUpdatingFavorites) {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + interleavedRows.length) % interleavedRows.length);
+    }
   };
 
   return (
@@ -85,16 +89,20 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
                   price={recommendation?.price}
                   img={recommendation?.img}
                   brand={recommendation?.brand}
-                  isHeartFull={favoritesArray.some(fav => fav.id === recommendation._id)} // Check if heart should be full
+                  isHeartFull={favoritesArray.some(fav => fav.id === recommendation._id)}
+                  onHeartChange={() => {
+                    setIsUpdatingFavorites(true);
+                    fetchFavorites().finally(() => setIsUpdatingFavorites(false));
+                  }}
                 />
               ))}
             </Stack>
           </Stack>
-          <Stack direction='row' spacing={2} justifyContent='center'>
-            <Button variant='contained' onClick={goToPreviousLine} sx={{ width: '100px' }}>
+          <Stack direction='row' spacing={2} justifyContent='center' sx={{id: 'prevNextStack'}}>
+            <Button variant='contained' onClick={goToPreviousLine} sx={{ width: '100px' }} disabled={isUpdatingFavorites} className={isUpdatingFavorites ? 'button-disabled' : ''}>
               Previous
             </Button>
-            <Button variant='contained' onClick={goToNextLine} sx={{ width: '100px' }}>
+            <Button variant='contained' onClick={goToNextLine} sx={{ width: '100px' }} disabled={isUpdatingFavorites} className={isUpdatingFavorites ? 'button-disabled' : ''}>
               Next
             </Button>
           </Stack>

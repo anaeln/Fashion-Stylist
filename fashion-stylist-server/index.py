@@ -130,7 +130,7 @@ def logout():
     return jsonify({'message': 'Logged out successfully'}), 200
 
 
-@app.route('/favorites', methods=['POST'])
+@app.route('/updateFavorites', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def toggle_favorite():
     user_id = session.get('user_id')
@@ -154,11 +154,11 @@ def toggle_favorite():
 
     # Check if the item is already in favorites
     favorites = user.get('favorites', [])
-    if any(fav['link'] == item['link'] for fav in favorites):
+    if any(fav['id'] == item['id'] for fav in favorites):
         # If the item is already in favorites, remove it
         users_collection.update_one(
             {'_id': ObjectId(user_id)},
-            {'$pull': {'favorites': {'link': item['link']}}}
+            {'$pull': {'favorites': {'id': item['id']}}}
         )
         return jsonify({'message': 'Item removed from favorites'}), 200
     else:

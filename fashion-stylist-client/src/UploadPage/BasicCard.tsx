@@ -11,32 +11,37 @@ interface CardProps {
   brand: string;
   img: string;
   isHeartFull: boolean;
+  onHeartChange?: () => void;
 }
 
-export default function BasicCard({ id, link, price, title, brand, img, isHeartFull }: CardProps) {
+export default function BasicCard({ id, link, price, title, brand, img, isHeartFull, onHeartChange }: CardProps) {
   const [isHeartFilled, setIsHeartFilled] = useState(isHeartFull);
 
   useEffect(() => {
     setIsHeartFilled(isHeartFull);
   }, [isHeartFull]);
 
-  const toggleHeartImage = async () => {
-    const newHeartState = !isHeartFilled;
-    setIsHeartFilled(newHeartState);
-    await handleHeartClick({ id, link, price, title, brand, img }, newHeartState);
-  };
-
   const handleHeartClick = async (item: any, isFull: boolean) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/favorites',
+        'http://localhost:5000/updateFavorites',
         { ...item, isFull },
         { withCredentials: true }
       );
       console.log(response.data.message);
+
+      if (onHeartChange) {
+        onHeartChange();
+      }
     } catch (error) {
       console.error('Error updating favorites:', error);
     }
+  };
+
+  const toggleHeartImage = async () => {
+    const newHeartState = !isHeartFilled;
+    setIsHeartFilled(newHeartState);
+    await handleHeartClick({ id, link, price, title, brand, img }, newHeartState);
   };
 
   return (
