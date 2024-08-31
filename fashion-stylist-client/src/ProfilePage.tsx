@@ -76,6 +76,7 @@ const ProfilePage: React.FC = () => {
                         img={item.img}
                         brand={item.brand}
                         isHeartFull={true}
+                        isUserConnected={true}
                       />
                     </Grid>
                   ))

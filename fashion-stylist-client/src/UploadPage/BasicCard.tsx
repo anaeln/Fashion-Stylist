@@ -12,11 +12,13 @@ interface CardProps {
   img: string;
   isHeartFull: boolean;
   onHeartChange?: () => void;
+  isUserConnected: boolean;
 }
 
-export default function BasicCard({ id, link, price, title, brand, img, isHeartFull, onHeartChange }: CardProps) {
-  const [isHeartFilled, setIsHeartFilled] = useState(isHeartFull);
+export default function BasicCard({ id, link, price, title, brand, img, isHeartFull, onHeartChange, isUserConnected }: CardProps) {
+  const [isHeartFilled, setIsHeartFilled] = useState(false);
 
+  // Reset heart state when `isHeartFull` prop changes (i.e., when switching recommendations)
   useEffect(() => {
     setIsHeartFilled(isHeartFull);
   }, [isHeartFull]);
@@ -69,7 +71,7 @@ export default function BasicCard({ id, link, price, title, brand, img, isHeartF
                 width: '30px',
                 height: '30px',
                 border: 'none',
-                background: `url(${isHeartFilled ? 'http://localhost:5000/public/fullHeart.png' : 'http://localhost:5000/public/hollowHeart.png'})`,
+                background: `url(${isUserConnected && isHeartFilled ? 'http://localhost:5000/public/fullHeart.png' : 'http://localhost:5000/public/hollowHeart.png'})`,
               }}
             />
           </OverlayTrigger>

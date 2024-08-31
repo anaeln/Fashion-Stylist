@@ -28,6 +28,7 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
   const [currentIndex, setCurrentIndex] = useState(0);
   const [favoritesArray, setFavoritesArray] = useState<any[]>([]);
   const [isUpdatingFavorites, setIsUpdatingFavorites] = useState(false);
+  const [isUserConnected, setIsUserConnected] = useState(false); // New state for user connection
 
   const fetchFavorites = async () => {
     try {
@@ -38,8 +39,23 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
     }
   };
 
+  const checkUserConnection = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/profile', { withCredentials: true });
+      setIsUserConnected(response.status === 200);
+      if (response.status === 200) {
+        await fetchFavorites(); // Fetch favorites if the user is connected
+      } else {
+        setFavoritesArray([]);
+      }
+    } catch (error) {
+      setIsUserConnected(false);
+      setFavoritesArray([]);
+    }
+  };
+
   useEffect(() => {
-    fetchFavorites();
+    checkUserConnection();
   }, []);
 
   useEffect(() => {
@@ -72,6 +88,10 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
     }
   };
 
+  function heartState(recommendation: Recommendation) {
+    return isUserConnected ? favoritesArray.some(fav => fav.id === recommendation._id) : false;
+  }
+
   return (
     <Stack direction='column' spacing={4} justifyContent='space-evenly' width='80vw'>
       {isRecommendationPending ? (
@@ -89,20 +109,33 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recomme
                   price={recommendation?.price}
                   img={recommendation?.img}
                   brand={recommendation?.brand}
-                  isHeartFull={favoritesArray.some(fav => fav.id === recommendation._id)}
+                  isHeartFull={heartState(recommendation)}
                   onHeartChange={() => {
                     setIsUpdatingFavorites(true);
                     fetchFavorites().finally(() => setIsUpdatingFavorites(false));
                   }}
+                  isUserConnected={isUserConnected}
                 />
               ))}
             </Stack>
           </Stack>
-          <Stack direction='row' spacing={2} justifyContent='center' sx={{id: 'prevNextStack'}}>
-            <Button variant='contained' onClick={goToPreviousLine} sx={{ width: '100px' }} disabled={isUpdatingFavorites} className={isUpdatingFavorites ? 'button-disabled' : ''}>
+          <Stack direction='row' spacing={2} justifyContent='center' sx={{ id: 'prevNextStack' }}>
+            <Button
+              variant='contained'
+              onClick={goToPreviousLine}
+              sx={{ width: '100px' }}
+              disabled={isUpdatingFavorites}
+              className={isUpdatingFavorites ? 'button-disabled' : ''}
+            >
               Previous
             </Button>
-            <Button variant='contained' onClick={goToNextLine} sx={{ width: '100px' }} disabled={isUpdatingFavorites} className={isUpdatingFavorites ? 'button-disabled' : ''}>
+            <Button
+              variant='contained'
+              onClick={goToNextLine}
+              sx={{ width: '100px' }}
+              disabled={isUpdatingFavorites}
+              className={isUpdatingFavorites ? 'button-disabled' : ''}
+            >
               Next
             </Button>
           </Stack>
