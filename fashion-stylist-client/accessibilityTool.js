@@ -6,8 +6,8 @@ let previousUrl = window.location.href;
 let clickDist = 0;
 const maxClicksDist = 5;
 let currentFontIndex = 0;
-const fontClasses = ['jost', 'cursive', 'courier', 'serif', 'arial'];
-const fontNames = ['Jost', 'Cursive', 'Courier New', 'Serif', 'Arial'];
+const fontClasses = ['jost', 'cursive', 'serif', 'arial'];
+const fontNames = ['Jost', 'Cursive', 'Serif', 'Arial'];
 
 
 function showTool() {

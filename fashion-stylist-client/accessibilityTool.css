@@ -178,10 +178,6 @@ body[class*="-font"] #root .MuiOutlinedInput-notchedOutline {
     --current-font: cursive;
 }
 
-.courier-font {
-    --current-font: 'Courier New';
-}
-
 .serif-font {
     --current-font: serif;
 }
