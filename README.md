@@ -32,7 +32,7 @@ It's an application that recommends clothing and assists users in making purchas
 
 ## Presentation Video
 
-[Watch the Presentation](./fashion-stylist-server/public/final-presentation.mp4)
+[Watch the Presentation Video](https://drive.google.com/file/d/1P5WY2sVIbGdZ2oBrvMKC9RNPcn9RJUG2/view?usp=sharing)
 
 ---
 
