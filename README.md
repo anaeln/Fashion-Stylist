@@ -53,7 +53,9 @@ This project is built with the following technologies:
 
 * Python
 * JavaScript (React)
-* HTML/CSS
+* TypeScript
+* HTML
+* CSS
 * Flask
 * Node
 * Pandas
